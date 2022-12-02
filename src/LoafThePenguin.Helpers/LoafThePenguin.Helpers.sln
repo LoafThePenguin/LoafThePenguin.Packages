@@ -14,6 +14,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items", "solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoafThePenguin.Helpers", "src\LoafThePenguin.Helpers\LoafThePenguin.Helpers.csproj", "{5C11D257-7376-4957-87F1-18AE47EBB6B5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{5E369AF1-BC20-4107-95D5-D5B2875D6751}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{6DE7ACE1-00C7-4367-822F-4EAC08F2C87C}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\.github\workflows\loaf-the-penguin-helpers-release.yml = ..\..\.github\workflows\loaf-the-penguin-helpers-release.yml
+		..\..\.github\workflows\loaf-the-penguin-helpers-sonar-check.yml = ..\..\.github\workflows\loaf-the-penguin-helpers-sonar-check.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +38,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{5C11D257-7376-4957-87F1-18AE47EBB6B5} = {48C24E3D-444C-463C-9A58-BBBE36628354}
+		{6DE7ACE1-00C7-4367-822F-4EAC08F2C87C} = {5E369AF1-BC20-4107-95D5-D5B2875D6751}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9F2B7F69-3C5E-4A4C-8499-1FB9081618B7}

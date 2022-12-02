@@ -1,29 +1,40 @@
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.Numerics;
 using System.Runtime.CompilerServices;
 using static LoafThePenguin.Helpers.Internal.ExceptionMessages;
 
 namespace LoafThePenguin.Helpers;
 
+/// <summary>
+/// Содержит методы выброса исключений.
+/// </summary>
+/// <exception cref="InvalidOperationException"/>
+/// <exception cref="ObjectDisposedException"/>
+/// <exception cref="ArgumentNullException"/>
+/// <exception cref="NullReferenceException"/>
+/// <exception cref="ArgumentOutOfRangeException"/>
+/// <exception cref="IndexOutOfRangeException"/>
 public static class ThrowHelper
 {
     private const string VALUE_ARGUMENT_NAME = "value";
     private const string SEQUENCE_ARGUMENT_NAME = "sequence";
 
     /// <summary>
-    /// Throws exception.
+    /// Выбрасывает исключения.
     /// </summary>
     /// <typeparam name="T">
-    /// Exception's type.
+    /// Тип выбрасываемого исключения.
     /// </typeparam>
     /// <param name="args">
-    /// Arguments' array.
+    /// Массив аргументов выбрасываемого исключения.
     /// </param>
     /// <exception cref="InvalidOperationException">
-    /// Throws when <paramref name="args"/> are empty. Or when exception is obscure.
+    /// Возникает, когда массив <paramref name="args"/> пуст. Либо когда исключение неопределено.
     /// </exception>
     /// <remarks>
-    /// <paramref name="args"/> should include at least one argument as message.
+    /// Массив <paramref name="args"/> должен содержать хотябы один аргмент - сообщение.
     /// </remarks>
     [DoesNotReturn]
     public static void Throw<T>(params object?[] args)
@@ -41,16 +52,14 @@ public static class ThrowHelper
     }
 
     /// <summary>
-    /// Throws <see cref="ObjectDisposedException"/>.
+    /// Выбрасывет исключение <see cref="ObjectDisposedException"/>.
     /// </summary>
-    /// <typeparam name="T">Type of disposed object.</typeparam>
-    /// <param name="value">Disposed object.</param>
-    /// <param name="argumentName">Name of disposed object.</param>
-    /// <exception cref="ObjectDisposedException"/>
-    [DoesNotReturn]
+    /// <typeparam name="T">Тип высвобожденного объекта.</typeparam>
+    /// <param name="value">Высвобожденный объект.</param>
+    /// <param name="argumentName">Имя высвобожденного объекта.</param>
     [SuppressMessage("Style", "IDE0060:Удалите неиспользуемый параметр", Justification = "<Ожидание>")]
-    public static bool ThrowDisposed<T>(
-        [NotNullWhen(false)] T? value,
+    public static void ThrowDisposed<T>(
+        T value,
         [CallerArgumentExpression(VALUE_ARGUMENT_NAME)] string? argumentName = null)
     {
         Throw<ObjectDisposedException>(string.Format(
@@ -58,21 +67,19 @@ public static class ThrowHelper
                 argumentName,
                 typeof(T)
             ));
-
-        return false;
     }
 
     /// <summary>
-    /// Throws <see cref="ArgumentNullException"/> when <paramref name="value"/> is <see langword="null"/>.
+    /// Выбрасывает <see cref="ArgumentNullException"/>, когда <paramref name="value"/> - <see langword="null"/>.
     /// </summary>
-    /// <typeparam name="T"><paramref name="value"/>'s type.</typeparam>
-    /// <param name="value">Value.</param>
-    /// <param name="argumentName">Argument name.</param>
+    /// <typeparam name="T">Тип параметра <paramref name="value"/>.</typeparam>
+    /// <param name="value">Проверяемый объект.</param>
+    /// <param name="argumentName">Имя аргумента.</param>
     /// <returns>
-    /// <see langword="false"/> if <paramref name="value"/> is not <see langword="null"/>,
-    /// otherwise throws an <see cref="ArgumentNullException"/>.
+    /// <see langword="false"/>, если <paramref name="value"/> не <see langword="null"/>,
+    /// иначе - выбрасывает исключение <see cref="ArgumentNullException"/>.
     /// </returns>
-    /// <exception cref="ArgumentNullException">Throw when <paramref name="value"/> is <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentNullException">Выбрасывается, когда <paramref name="value"/> - <see langword="null"/>.</exception>
     public static bool ThrowIfArgumentNull<T>(
         [NotNullWhen(false)] T? value,
         [CallerArgumentExpression(VALUE_ARGUMENT_NAME)] string? argumentName = null)
@@ -86,16 +93,16 @@ public static class ThrowHelper
     }
 
     /// <summary>
-    /// Throws <see cref="NullReferenceException"/> when <paramref name="value"/> is <see langword="null"/>.
+    /// Выбрасывает <see cref="NullReferenceException"/>, когда <paramref name="value"/> - <see langword="null"/>.
     /// </summary>
-    /// <typeparam name="T"><paramref name="value"/>'s type.</typeparam>
-    /// <param name="value">Value.</param>
-    /// <param name="argumentName">Argument name.</param>
+    /// <typeparam name="T">Тип параметра <paramref name="value"/>.</typeparam>
+    /// <param name="value">Проверяемый объект.</param>
+    /// <param name="argumentName">Имя аргумента.</param>
     /// <returns>
-    /// <see langword="false"/> if <paramref name="value"/> is not <see langword="null"/>,
-    /// otherwise throws an <see cref="NullReferenceException"/>.
+    /// <see langword="false"/>, если <paramref name="value"/> не <see langword="null"/>,
+    /// иначе - выбрасывает исключение <see cref="NullReferenceException"/>.
     /// </returns>
-    /// <exception cref="NullReferenceException">Throw when <paramref name="value"/> is <see langword="null"/>.</exception>
+    /// <exception cref="NullReferenceException">Выбрасывается, когда <paramref name="value"/> - <see langword="null"/>.</exception>
     public static bool ThrowIfNull<T>(
         [NotNullWhen(false)] T? value,
         [CallerArgumentExpression(VALUE_ARGUMENT_NAME)] string? argumentName = null)
@@ -112,35 +119,46 @@ public static class ThrowHelper
     }
 
     /// <summary>
-    /// Throws <see cref="ArgumentOutOfRangeException"/> when <paramref name="value"/>
-    /// is out of bounds.
+    /// Выбрасывает исключение <see cref="ArgumentOutOfRangeException"/>, когда <paramref name="value"/>
+    /// выходит за границы.
     /// </summary>
+    /// <typeparam name="T">
+    /// Тип значения.
+    /// </typeparam>
     /// <param name="value">
-    /// <see cref="int"/> value.
+    /// Значение.
     /// </param>
     /// <param name="permissibleMinimum">
-    /// The minimum that a <paramref name="value"/> can be.
+    /// Минимум, который может принимать <paramref name="value"/>.
     /// </param>
     /// <param name="permissibleMaximum">
-    /// The maximum that a <paramref name="value"/> can be.
+    /// Макимум, который может принимать <paramref name="value"/>.
     /// </param>
-    /// <param name="argumentName">Argument name.</param>
+    /// <param name="argumentName">Имя аргумента.</param>
     /// <exception cref="ArgumentOutOfRangeException">
-    /// Throws when <paramref name="value"/> is out of bounds.
+    /// Выбрасывается, когда <paramref name="value"/>
+    /// выходит за границы.
     /// </exception>
-    public static void ThrowIfIntArgumentOutOfRange(
-        int value,
-        int permissibleMinimum = 0,
-        int permissibleMaximum = int.MaxValue,
+    public static void ThrowIfArgumentOutOfRange<T>(
+        T value,
+        T permissibleMinimum,
+        T permissibleMaximum,
         [CallerArgumentExpression(VALUE_ARGUMENT_NAME)] string? argumentName = null)
+        where T : IComparisonOperators<T, T, bool>, INumber<T>, IFormattable
+
     {
+        static string Format(T value)
+        {
+            return value.ToString(format: null, CultureInfo.InvariantCulture);
+        }
+
         if (value < permissibleMinimum)
         {
             Throw<ArgumentOutOfRangeException>(
                 argumentName,
                 string.Format(ARGUMENT_OUT_OF_RANGE_CANT_BE_LOWER,
                               argumentName,
-                              permissibleMinimum));
+                              Format(permissibleMinimum)));
         }
 
         if (value > permissibleMaximum)
@@ -149,20 +167,19 @@ public static class ThrowHelper
                 argumentName,
                 string.Format(ARGUMENT_OUT_OF_RANGE_CANT_BE_HIGHER,
                               argumentName,
-                              permissibleMaximum));
+                              Format(permissibleMaximum)));
         }
     }
 
     /// <summary>
-    /// Throws <see cref="IndexOutOfRangeException"/> when <paramref name="value"/>
-    /// is lower than zero.
+    /// Выбрасывается <see cref="IndexOutOfRangeException"/>, когда значения индекса <paramref name="index"/>
+    /// меньше 0.
     /// </summary>
-    /// <param name="value">
-    /// <see cref="int"/> index.
+    /// <param name="index">
+    /// Значение индекса.
     /// </param>
-    /// <param name="argumentName">Argument name.</param>
-    /// <exception cref="ArgumentOutOfRangeException">
-    /// Throws when <paramref name="value"/> is out of bounds.
+    /// <exception cref="IndexOutOfRangeException">
+    /// Выбрасывается, когда <paramref name="index"/> меньше 0.
     /// </exception>
     public static void ThrowIfIndexLowerZero(int index)
     {
@@ -173,36 +190,50 @@ public static class ThrowHelper
     }
 
     /// <summary>
-    /// Invokes <paramref name="action"/> when <paramref name="value"/> is <see langword="null"/>.
+    /// Вызывает процедуру <paramref name="action"/>, когда <paramref name="value"/> - <see langword="null"/>.
     /// </summary>
-    /// <typeparam name="T"><paramref name="value"/>'s type.</typeparam>
-    /// <param name="value">Value.</param>
-    /// <param name="action">Action who invokes when <paramref name="value"/> is <see langword="null"/>..</param>
-    /// <exception cref="ArgumentNullException">Throw when <paramref name="action"/> is <see langword="null"/>.</exception>
-    public static void DoIfNull<T>(T? value, Action action)
+    /// <typeparam name="T">Тип параметра <paramref name="value"/>.</typeparam>
+    /// <param name="value">Значение.</param>
+    /// <param name="action">Процедура, которая вызывается, когда <paramref name="value"/> - <see langword="null"/>.</param>
+    /// <returns>
+    /// <see langword="true"/>, если <paramref name="value"/> - <see langword="null"/>,
+    /// иначе - <see langword="false"/>.
+    /// </returns>
+    /// <exception cref="ArgumentNullException">Вызывается, когда <paramref name="action"/> - <see langword="null"/>.</exception>
+    public static bool DoIfNull<T>([NotNullWhen(false)]T? value, Action action)
     {
         ThrowIfArgumentNull(action);
         if (value is null)
         {
             action();
+
+            return true;
         }
+
+        return false;
     }
 
     /// <summary>
-    /// Throws <see cref="NullReferenceException"/>.
-    /// if any item in sequence <paramref name="sequence"/> is <see langword="null"/>
+    /// Выбрасывает <see cref="NullReferenceException"/>,
+    /// если в последовательности <paramref name="sequence"/> имеется элемент, который является <see langword="null"/>.
     /// </summary>
-    /// <param name="sequence">Sequence.</param>
-    /// <param name="argumentName">Argument's name.</param>
+    /// <param name="sequence">Последовательность.</param>
+    /// <param name="argumentName">Имя аргумента последовательности.</param>
     /// <returns>
-    /// <see langword="false"/> if all items are not <see langword="null"/>,
-    /// otherwise throws <see cref="NullReferenceException"/>.
+    /// <see langword="false"/> если в последовательности нет элекментов, которые <see langword="null"/>,
+    /// иначе выбрасывает исключение <see cref="NullReferenceException"/>.
     /// </returns>
-    /// <exception cref="NullReferenceException"/>
+    /// <exception cref="NullReferenceException">
+    /// Выбрасывается, если в последовательности <paramref name="sequence"/> имеется элемент, который является <see langword="null"/>.
+    /// </exception>
+    /// <exception cref="ArgumentNullException">
+    /// Выбрасывается, если <paramref name="sequence"/> является <see langword="null"/>.
+    /// </exception>
     public static bool ThrowIfAnyItemIsNull(
         IEnumerable sequence,
         [CallerArgumentExpression(SEQUENCE_ARGUMENT_NAME)] string? argumentName = null)
     {
+        ThrowIfArgumentNull(sequence);
         foreach (object enumeable in sequence)
         {
             if (enumeable is null)
