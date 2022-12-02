@@ -2,7 +2,7 @@ name: Loaf-The-Penguin-Helpers-Package-Release
 on: 
   push:
     branches: [release]
-    paths: ['src/LoafThePenguin.Helpers/']
+    paths: ['src/LoafThePenguin.Helpers/**']
     tags: 
         - "v*.*"
 jobs:
