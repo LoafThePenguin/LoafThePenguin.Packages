@@ -2,7 +2,7 @@ name: Loaf-The-Penguin-Helpers-Package-Release
 on: 
   push:
     branches: [release]
-    paths: ['src/LoafThePenguin.Helpers/**']
+    paths: ['**/LoafThePenguin.Helpers/**']
     tags: 
         - "v*.*"
 jobs:
@@ -26,4 +26,4 @@ jobs:
       - name: Pack
         run: dotnet pack src/LoafThePenguin.Helpers/src/LoafThePenguin.Helpers -c Release
       - name: Publish
-        run: dotnet nuget push "src/LoafThePenguin.Helpers/artifacts/Release/nupkg/*.nupkg" -k {{ secrets.GITHUB_TOKEN }} -s https://nuget.pkg.github.com/LoafThePenguin.Helpers/index.json
+        run: dotnet nuget push "src/LoafThePenguin.Helpers/artifacts/Release/nupkg/*.nupkg" -k {{ secrets.GITHUB_TOKEN }} -s https://nuget.pkg.github.com/LoafThePenguin.Packages/index.json
