@@ -64,6 +64,4 @@ jobs:
       - name: Pack
         run: dotnet pack src/LoafThePenguin.Helpers/src/LoafThePenguin.Helpers -c Release
       - name: Publish
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: dotnet nuget push "**/LoafThePenguin.Helpers/artifacts/Release/nupkg/*.nupkg" --api-key $GITHUB_TOKEN -s https://nuget.pkg.github.com/LoafThePenguin/index.json
+        run: dotnet nuget push "**/LoafThePenguin.Helpers/artifacts/Release/nupkg/*.nupkg" --api-key ${{ secrets.GITHUB_TOKEN }} -s https://nuget.pkg.github.com/LoafThePenguin/index.json
