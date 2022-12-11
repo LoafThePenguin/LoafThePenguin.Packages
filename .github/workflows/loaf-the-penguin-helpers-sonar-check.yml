@@ -1,11 +1,11 @@
-name: Loaf-The-Penguin-Helpers-Sonar-Check
+name: LoafThePenguin.Helpers Build And Check
 on:
   push:
-    branches: [dev, release]
+    branches: [dev]
     paths: ['**/LoafThePenguin.Helpers/**']
         
   pull_request:
-    branches: [dev]
+    branches: [dev, release]
     paths: ['**/LoafThePenguin.Helpers/**']
     types: [opened, synchronize, reopened]
 jobs:
