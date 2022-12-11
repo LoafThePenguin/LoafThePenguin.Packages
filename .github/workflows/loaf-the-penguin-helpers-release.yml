@@ -4,7 +4,7 @@ on:
     branches: [release]
     paths: ['**/LoafThePenguin.Helpers/**']
     tags: 
-        - "v*.*"
+        - "v*.*"      
   workflow_dispatch:
     branches: [release]
 jobs:
@@ -66,4 +66,4 @@ jobs:
       - name: Publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: dotnet nuget push "**/LoafThePenguin.Helpers/artifacts/Release/nupkg/*.nupkg" --api-key $GITHUB_TOKEN -s https://nuget.pkg.github.com/LoafThePenguin.Packages/index.json
+        run: dotnet nuget push "**/LoafThePenguin.Helpers/artifacts/Release/nupkg/*.nupkg" --api-key $GITHUB_TOKEN -s https://nuget.pkg.github.com/LoafThePenguin/index.json
