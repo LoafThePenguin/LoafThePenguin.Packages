@@ -48,9 +48,9 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"LoafThePenguin_LoafThePenguin.Packages" /o:"loafthepenguin" /d:sonar.login=$SONAR_TOKEN /d:sonar.host.url="https://sonarcloud.io"
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"LoafThePenguin_LoafThePenguin.Packages" /o:"loafthepenguin" /d:sonar.login=${{ secrets.SONAR_TOKEN }} /d:sonar.host.url="https://sonarcloud.io"
           dotnet build src/LoafThePenguin.Helpers/LoafThePenguin.Helpers.sln
-          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login=$SONAR_TOKEN
+          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login=${{ secrets.SONAR_TOKEN }}
       - uses: actions/checkout@v2
         with:
           # avoid shallow clone for Nerdbank.GitVersioning
@@ -64,4 +64,6 @@ jobs:
       - name: Pack
         run: dotnet pack src/LoafThePenguin.Helpers/src/LoafThePenguin.Helpers -c Release
       - name: Publish
-        run: dotnet nuget push "**/LoafThePenguin.Helpers/artifacts/Release/nupkg/*.nupkg" --api-key {{ secrets.GITHUB_TOKEN }} -s https://nuget.pkg.github.com/LoafThePenguin.Packages/index.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: dotnet nuget push "**/LoafThePenguin.Helpers/artifacts/Release/nupkg/*.nupkg" --api-key $GITHUB_TOKEN -s https://nuget.pkg.github.com/LoafThePenguin.Packages/index.json
