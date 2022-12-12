@@ -26,6 +26,8 @@
     <BaseIntermediateOutputPath>$(SolutionDir)artifacts\$(Configuration)\obj\$(MSBuildProjectName)</BaseIntermediateOutputPath>
     <PackageOutputPath>$(SolutionDir)artifacts\$(Configuration)\nupkg</PackageOutputPath>
 
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+
     <PublishReadyToRun>true</PublishReadyToRun>
     <PublishSingleFile>true</PublishSingleFile>
     
