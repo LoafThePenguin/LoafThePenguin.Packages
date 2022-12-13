@@ -14,5 +14,6 @@
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=LoafThePenguin_LoafThePenguin.Packages&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=LoafThePenguin_LoafThePenguin.Packages)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=LoafThePenguin_LoafThePenguin.Packages&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=LoafThePenguin_LoafThePenguin.Packages)
 
-## LoafThePenguin.Helpers
+## [LoafThePenguin.Helpers](../src/LoafThePenguin.Helpers/docs/README.md) [![LoafThePenguin.Helpers](https://sonarcloud.io/api/project_badges/measure?project=LoafThePenguin_LoafThePenguin.Packages&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=LoafThePenguin_LoafThePenguin.Packages)
 
+https://badgen.net/nuget/v/LoafThePenguin.Helpers https://badgen.net/LoafThePenguin/github/pkgs/nuget/v/LoafThePenguin.Helpers

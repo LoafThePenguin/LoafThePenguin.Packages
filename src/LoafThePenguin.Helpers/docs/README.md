@@ -1,0 +1,1 @@
+# LoafThePenguin.Packages https://img.shields.io/nuget/v/LoafThePenguin.Helpers
