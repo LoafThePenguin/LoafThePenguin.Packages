@@ -12,9 +12,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items", "solution 
 		version.json = version.json
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoafThePenguin.Helpers", "src\LoafThePenguin.Helpers\LoafThePenguin.Helpers.csproj", "{5C11D257-7376-4957-87F1-18AE47EBB6B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoafThePenguin.Helpers", "src\LoafThePenguin.Helpers\LoafThePenguin.Helpers.csproj", "{5C11D257-7376-4957-87F1-18AE47EBB6B5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{5E369AF1-BC20-4107-95D5-D5B2875D6751}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\.github\README.md = ..\..\.github\README.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{6DE7ACE1-00C7-4367-822F-4EAC08F2C87C}"
 	ProjectSection(SolutionItems) = preProject
