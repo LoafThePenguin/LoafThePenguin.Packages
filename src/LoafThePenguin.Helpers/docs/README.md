@@ -1,2 +1,2 @@
 # LoafThePenguin.Helpers
-[![release](https://badgen.net/github/release/LoafThePenguin/LoafThePenguin.Packages)](https://github.com/LoafThePenguin/LoafThePenguin.Packages/releases?q=LoafThePenguin.Helpers&display_name=tag&include_prereleases&sort=semver)
+[![release](https://badgen.net/github/release/LoafThePenguin/LoafThePenguin.Packages/releases?q=LoafThePenguin.Helpers&display_name=tag&include_prereleases&sort=semver)](https://github.com/LoafThePenguin/LoafThePenguin.Packages/releases?q=LoafThePenguin.Helpers&display_name=tag&include_prereleases&sort=semver)

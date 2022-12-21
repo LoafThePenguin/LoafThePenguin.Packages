@@ -68,7 +68,7 @@ jobs:
       - run: "echo 'SemVer2: ${{ steps.nbgv.outputs.SemVer2 }}'"
 
       - name: Buid
-        run: dotnet publish src/LoafThePenguin.Helpers/src/LoafThePenguin.Helpers -c Release -r win-x64 -o artifacts/publish --self-contained
+        run: dotnet publish src/LoafThePenguin.Helpers/src/LoafThePenguin.Helpers -c Release -r win-x64 -o artifacts/publish
 
       - name: Rename
         run: ren "artifacts/publish/LoafThePenguin.Helpers.dll" "LoafThePenguin.Helpers-${{ steps.nbgv.outputs.SemVer2 }}.exe"
