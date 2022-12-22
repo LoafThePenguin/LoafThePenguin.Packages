@@ -1,0 +1,19 @@
+name: Setup .NET 7
+on:
+  workflow_dispatch:
+jobs:
+  Setup-NET7:
+    name: Setup .NET 7
+    runs-on: windows-latest
+    steps:
+      - name: Setup .NET 7
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 7.*.*
+
+      - name: Cache .NET 7
+        uses: actions/cache@v1
+        with:
+          path: .\net7\cache
+          key: ${{ runner.os }}-net7
+          restore-keys: ${{ runner.os }}-net7

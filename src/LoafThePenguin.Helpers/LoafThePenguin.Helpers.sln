@@ -21,8 +21,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{5E36
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{6DE7ACE1-00C7-4367-822F-4EAC08F2C87C}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\.github\workflows\loaf-the-penguin-helpers-release.yml = ..\..\.github\workflows\loaf-the-penguin-helpers-release.yml
-		..\..\.github\workflows\loaf-the-penguin-helpers-sonar-check.yml = ..\..\.github\workflows\loaf-the-penguin-helpers-sonar-check.yml
+		..\..\.github\workflows\Checkout.yml = ..\..\.github\workflows\Checkout.yml
+		..\..\.github\workflows\ReleaseLoafThePenguin.Helpers.yml = ..\..\.github\workflows\ReleaseLoafThePenguin.Helpers.yml
+		..\..\.github\workflows\SetupDotNet.yml = ..\..\.github\workflows\SetupDotNet.yml
+		..\..\.github\workflows\SetupJDK11.yml = ..\..\.github\workflows\SetupJDK11.yml
+		..\..\.github\workflows\Sonar.yml = ..\..\.github\workflows\Sonar.yml
+		..\..\.github\workflows\SonarLoafThePenguin.Helpers.yml = ..\..\.github\workflows\SonarLoafThePenguin.Helpers.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{C7022E2C-3364-4B50-A720-DD82D1EB91BD}"

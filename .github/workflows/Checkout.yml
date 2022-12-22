@@ -1,0 +1,23 @@
+name: Checkout
+on:
+  workflow_dispatch:
+   inputs:
+     project:
+       description: Project will checkout
+       required: true
+jobs:
+  Checkout:
+    name: Checkout
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with: 
+         fetch-depth: 0
+    
+      - name: Cache Checkout
+        uses: actions/cache@v1
+        with:
+          path: .\checkout\${{ inputs.project }}
+          key: ${{ runner.os }}-checkout-${{ inputs.project }}
+          restore-keys: ${{ runner.os }}-checkout-${{ inputs.project }}
