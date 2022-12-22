@@ -30,6 +30,8 @@ public static class DateOnlyHelper
         return DayOfWeekDate(dayOfWeek, nextDayOfweek: false);
     }
 
+    public static DateOnly Foo() => DateOnly.FromDateTime(DateTime.Now);
+
     private static DateOnly DayOfWeekDate(DayOfWeek dayOfWeek, bool nextDayOfweek)
     {
         int direction = nextDayOfweek
