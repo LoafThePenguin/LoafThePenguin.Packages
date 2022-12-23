@@ -1,6 +1,6 @@
 name: Setup .NET 7
 on:
-  workflow_dispatch:
+  workflow_call:
 jobs:
   Setup-NET7:
     name: Setup .NET 7

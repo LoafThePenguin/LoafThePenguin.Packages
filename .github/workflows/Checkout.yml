@@ -1,10 +1,11 @@
 name: Checkout
 on:
-  workflow_dispatch:
+  workflow_call:
    inputs:
      project:
        description: Project will checkout
        required: true
+       type: string
 jobs:
   Checkout:
     name: Checkout

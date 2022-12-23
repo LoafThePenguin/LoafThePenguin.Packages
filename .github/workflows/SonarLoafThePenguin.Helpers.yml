@@ -1,24 +1,17 @@
 name: LoafThePenguin.Helpers Build And Check
 on:
-  push:
-    branches: [dev]
-    paths: ['**/LoafThePenguin.Helpers/**']
+    workflow_dispatch:
+
+    push:
+        branches: [dev]
+        paths: ['**/LoafThePenguin.Helpers/**']
         
-  pull_request:
-    branches: [dev, release]
-    paths: ['**/LoafThePenguin.Helpers/**']
-    types: [opened, synchronize, reopened]
+    pull_request:
+        branches: [dev, release]
+        paths: ['**/LoafThePenguin.Helpers/**']
+        types: [opened, synchronize, reopened]
 jobs:
-  Setup-JDK11:
-   uses: ./.github/workflows/SetupJDK11.yml
-  
-  Setup-Net7:
-   uses: ./.github/workflows/SetupDotNet.yml
-
-  Checkout:
-    uses: ./.github/workflows/Checkout.yml
-
-  Sonar:
-    uses: ./.github/workflows/Checkout.yml
-    with: 
-      project: LoafThePenguin.Helpers
+    Sonar:
+        uses: ./.github/workflows/Sonar.yml
+        with: 
+            project: LoafThePenguin.Helpers
