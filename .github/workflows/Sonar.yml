@@ -6,6 +6,9 @@ on:
                 description: Project will check
                 required: true
                 type: string
+        secrets:
+            SONAR_TOKEN: 
+                required: true
 jobs:
     Setup-JDK11:
         uses: ./.github/workflows/SetupJDK11.yml
@@ -20,6 +23,10 @@ jobs:
         needs: [Setup-JDK11, Setup-Net7, Checkout]
         runs-on: windows-latest
         steps:
+          - name: Checkout
+            uses: actions/checkout@v2
+            with: 
+                fetch-depth: 0
           - name: Cache SonarCloud packages
             uses: actions/cache@v1
             with:
@@ -46,5 +53,5 @@ jobs:
             shell: powershell
             run: |
                 .\.sonar\scanner\dotnet-sonarscanner begin /k:"LoafThePenguin_LoafThePenguin.Packages" /o:"loafthepenguin" /d:sonar.login=${{ secrets.SONAR_TOKEN }} /d:sonar.host.url="https://sonarcloud.io"
-                dotnet build .\checkout\${{ inputs.project }}\src\${{ inputs.project }}\${{ inputs.project }}.sln
+                dotnet build src/${{ inputs.project }}/${{ inputs.project }}.sln
                 .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login=${{ secrets.SONAR_TOKEN }}
