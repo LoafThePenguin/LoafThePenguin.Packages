@@ -1,0 +1,17 @@
+name: Checkout
+on:
+  workflow_call:
+   inputs:
+     project:
+       description: Project will checkout
+       required: true
+       type: string
+jobs:
+  Checkout:
+    name: Checkout
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with: 
+         fetch-depth: 0

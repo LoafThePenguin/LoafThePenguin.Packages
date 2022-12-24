@@ -1,0 +1,53 @@
+name: Sonar
+on:
+      workflow_call:
+        inputs:
+            project:
+                description: Project will check
+                required: true
+                type: string
+        secrets:
+            SONAR_TOKEN: 
+                required: true
+jobs:
+    Setup-JDK11:
+        uses: ./.github/workflows/SetupJDK11.yml
+    Setup-Net7:
+        uses: ./.github/workflows/SetupDotNet.yml
+    Checkout:
+        uses: ./.github/workflows/Checkout.yml
+        with: 
+            project: ${{ inputs.project }}
+    Sonar:
+        name: Sonar
+        needs: [Setup-JDK11, Setup-Net7, Checkout]
+        runs-on: windows-latest
+        steps:
+          - name: Cache SonarCloud packages
+            uses: actions/cache@v1
+            with:
+                path: .\sonar\cache
+                key: ${{ runner.os }}-sonar
+                restore-keys: ${{ runner.os }}-sonar
+          - name: Cache SonarCloud scanner
+            id: cache-sonar-scanner
+            uses: actions/cache@v1
+            with:
+                path: .\.sonar\scanner
+                key: ${{ runner.os }}-sonar-scanner
+                restore-keys: ${{ runner.os }}-sonar-scanner
+          - name: Install SonarCloud scanner
+            if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
+            shell: powershell
+            run: |
+                New-Item -Path .\.sonar\scanner -ItemType Directory
+                dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
+          - name: Build and analyze
+            env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+                SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+            shell: powershell
+            run: |
+                .\.sonar\scanner\dotnet-sonarscanner begin /k:"LoafThePenguin_LoafThePenguin.Packages" /o:"loafthepenguin" /d:sonar.login=${{ secrets.SONAR_TOKEN }} /d:sonar.host.url="https://sonarcloud.io"
+                dotnet build src/${{ inputs.project }}/${{ inputs.project }}.sln
+                .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login=${{ secrets.SONAR_TOKEN }}
